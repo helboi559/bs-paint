@@ -57,14 +57,44 @@ for (let color of paletteColors) {
     // console.log(brushList[1])
   })
 }
-let mouseUp = false;
+
+const app = document.querySelector('.app')
+// console.log(app)
+// const dragged = (ele)=> {
+// ele.addEventListener('mousedown', ()=> {
+//   drag = false
+//   console.log(drag)
+// }) 
+// ele.addEventListener('mousemove', ()=> {
+//   drag = true
+//   console.log(drag)
+// }) 
+// ele.addEventListener('mouseup', ()=> {
+//   if(drag===true) {
+//     return drag
+//   }
+// }) 
+// }
+// app.addEventListener('mousedown',() => {
+//  drag = true
+//  console.log(drag)
+// })
 for (let box of canvasGrid) {
-  box.addEventListener("click", ()=> {
+  let drag = false
+  box.addEventListener("mouseup", ()=> {
     box.classList.replace(box.classList[1],brushList[1])
+    drag = false
   })
-  box.addEventListener("mouseenter", ()=> {
+  box.addEventListener("mousedown", ()=> {
     box.classList.replace(box.classList[1],brushList[1])
+    drag = true
   })
+  // box.addEventListener("mouseup", ()=> {
+  //   if(drag===true) {return}
+  // })
+  // box.addEventListener("mouseenter", ()=> {
+  //   box.classList.replace(box.classList[1],brushList[1])
+  // })
 }
 //ONE COLOR-------TESTING
 // let oneColor = document.querySelector('.color-1');
