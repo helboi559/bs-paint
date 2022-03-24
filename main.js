@@ -15,7 +15,7 @@
  * To make the second one happen, the number to change
  * is the first argument to `repeat`, currently set at 10.
  */
-const gridWidth = 10;
+const gridWidth = 30;
 let count = 0;
 const canvas = document.querySelector('.canvas');
 while (count <= gridWidth * gridWidth) {
@@ -32,93 +32,71 @@ while (count <= gridWidth * gridWidth) {
 /***********
  * QUERIES *
 ***********/
-
-// Add queries for all your squares, palette colors, and brush here.
-// (Note the singular or plural used in that sentence!)
-// let app = document.querySelector('.app')
+//adding colors-----------------------
+let palette = document.querySelector('.palette')
+let newColor = document.createElement('div')
+newColor.className = "palette-color color-6"
+// console.log(newColor)
+palette.appendChild(newColor)
+//---------------------------------
+// IDENTIFY ALL COLORS ETC --------------------
 let paletteColors = document.querySelectorAll('.brush-selection div')
 // console.log(paletteColors)
-// Target Canvas list by "grid"
+//-------------------------------------------
+// Target Canvas list by "grid"---------------------
 let canvasGrid = document.querySelectorAll('.canvas div')
 // console.log(canvasGrid)
-//Current brush
+//Current brush------------------------------
 let currentBrush = document.querySelector('.current-brush')
 let brushList = currentBrush.classList
-// console.log(currentBrush.classList)
+// console.log(brushList)
+const app = document.querySelector('.app')
 /****************************
  * EVENT LISTENER FUNCTIONS *
 ****************************/
 //any color clicked- changes the color of brush
+// console.log(paletteColors)
 for (let color of paletteColors) {
-  // console.log(color.classList[1])
+  console.log(color.classList)
   color.addEventListener("click", ()=> {
     //change colors
     brushList.replace(brushList[1],color.classList[1])
     // console.log(brushList[1])
   })
 }
+//paint colors canvas
+// let drag = false;
 
-const app = document.querySelector('.app')
-// console.log(app)
-// const dragged = (ele)=> {
-// ele.addEventListener('mousedown', ()=> {
-//   drag = false
-//   console.log(drag)
-// }) 
-// ele.addEventListener('mousemove', ()=> {
-//   drag = true
-//   console.log(drag)
-// }) 
-// ele.addEventListener('mouseup', ()=> {
-//   if(drag===true) {
-//     return drag
-//   }
-// }) 
-// }
-// app.addEventListener('mousedown',() => {
-//  drag = true
-//  console.log(drag)
-// })
+// app.addEventListener('mousedown', () => drag = false);
+// app.addEventListener('mousemove', () => drag = true);
+// app.addEventListener('mouseup', () => console.log(drag ? 'drag' : 'click'));
+let drag = false
 for (let box of canvasGrid) {
-  let drag = false
-  box.addEventListener("mouseup", ()=> {
-    box.classList.replace(box.classList[1],brushList[1])
-    drag = false
-  })
+  
   box.addEventListener("mousedown", ()=> {
     box.classList.replace(box.classList[1],brushList[1])
-    drag = true
+    // drag = true;
+    box.addEventListener('mousemove', ()=> {
+      box.classList.replace(box.classList[1],brushList[1])
+    })
   })
-  // box.addEventListener("mouseup", ()=> {
-  //   if(drag===true) {return}
-  // })
-  // box.addEventListener("mouseenter", ()=> {
-  //   box.classList.replace(box.classList[1],brushList[1])
-  // })
-}
-//ONE COLOR-------TESTING
-// let oneColor = document.querySelector('.color-1');
-// let oneColorList = oneColor.classList;
-// console.log(oneColor.classList)
-// oneColor.addEventListener('click',()=> {
- 
-//   brushList.replace(brushList[1],oneColorList[1])
   
-// })
-//---------
-// Now add some functions to handle clicking one particular square
-// and clicking one particular palette color. You can leave them
-// empty at first, though a console.log just to know they're being
-// run as event listeners (after the next step is set up) isn't a
-// bad idea for testing purposes.
-
-
-
-/**************************
- * WIRING IT ALL TOGETHER *
-**************************/
-
-// Now: wiring up our event listeners to our html node elements.
-// You'll need to add the appropriate event listener for each
-// square and for each palette color from the functions you
-// wrote above.
+  box.addEventListener("mouseup", ()=> {
+    
+    box.removeEventListener('mousemove', ()=> {
+      box.classList.replace(box.classList[1],brushList[1])
+      // drag = false
+    })
+    
+  })
+}
+// console.log(brushList[1])
+//add dark theme toggle
+let body = document.querySelector('body')
+let darkTheme = document.createElement('button')
+darkTheme.innerText = "Dark Theme!"
+// darkTheme.className=
+app.appendChild(darkTheme)
+darkTheme.addEventListener('click', ()=> {
+  body.style.backgroundColor = "gray"
+})
